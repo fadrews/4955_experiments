@@ -3,140 +3,464 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Cognitive Tasks Infographic</title>
+<title>Cognitive Tasks — Tokens & Definitions</title>
 <style>
   :root{
-    --bg:#f7f9fc; --card:#fff; --accent:#2b6fb3; --muted:#5a6b7a;
+    --bg:#f7f9fc; --card:#ffffff; --accent:#1f6feb; --muted:#55697a;
+    --chip-bg:#eef6ff; --chip-fg:#0b57a4;
   }
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#123; margin:0; padding:24px;}
-  header{max-width:1100px;margin:0 auto 18px;}
-  h1{margin:0 0 8px;font-size:28px;color:var(--accent)}
+  *{box-sizing:border-box}
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#072433; margin:0; padding:20px;}
+  header{max-width:1100px;margin:0 auto 12px;}
+  h1{margin:0 0 6px;font-size:28px;color:var(--accent)}
   p.lead{margin:0;color:var(--muted)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1100px;margin:18px auto;}
-  .card{background:var(--card);border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(20,30,50,0.06);cursor:pointer;transition:transform .12s, box-shadow .12s;}
-  .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(20,30,50,0.08)}
+  .wrap{max-width:1100px;margin:18px auto;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .card{background:var(--card);border-radius:10px;padding:12px;box-shadow:0 8px 20px rgba(20,30,50,0.06);cursor:pointer;transition:transform .12s, box-shadow .12s;}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(20,30,50,0.08)}
   .card h3{margin:0 0 6px;font-size:16px;color:var(--accent)}
   .card p{margin:0;color:var(--muted);font-size:13px}
-  .detail{max-width:1100px;margin:18px auto;background:#fff;border-radius:10px;padding:14px; box-shadow:0 6px 18px rgba(20,30,50,0.04); display:none;}
+  .card .exp-list{margin-top:10px;font-size:13px;color:#0b3a57}
+  .exp-item{display:block;padding:6px 8px;border-radius:6px;margin-bottom:6px;background:#f6fbff;color:var(--chip-fg);cursor:pointer}
+  .exp-item:hover{background:#eaf5ff}
+  .detail{margin-top:18px;background:var(--card);border-radius:10px;padding:14px; box-shadow:0 8px 20px rgba(20,30,50,0.04); display:none;}
   .detail.visible{display:block;}
-  .detail h2{margin-top:0;color:var(--accent)}
+  .detail h2{margin:0 0 6px;color:var(--accent)}
+  .detail p{color:var(--muted);margin:0 0 8px}
   .chips{margin-top:8px}
-  .chip{display:inline-block;background:#eef6ff;color:var(--accent);padding:6px 10px;border-radius:999px;font-size:12px;margin:4px 6px 0 0}
+  .chip{display:inline-block;background:var(--chip-bg);color:var(--chip-fg);padding:6px 10px;border-radius:999px;font-size:12px;margin:4px 6px 0 0}
+  .legend{margin-top:18px;background:linear-gradient(180deg,#ffffff,#fbfdff);border-radius:10px;padding:12px;box-shadow:0 6px 14px rgba(20,30,50,0.03)}
+  .legend h3{margin:0 0 8px;color:var(--accent);font-size:16px}
+  .legend-table{display:grid;grid-template-columns:1fr 3fr;gap:8px;font-size:14px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
   footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:13px}
-  /* responsive embed support */
-  .embed-wrap{max-width:1100px;margin:0 auto}
+  @media (max-width:700px){ .card .exp-list{font-size:12px} .legend-table{font-size:13px} }
+  a.smalllink{color:var(--accent);font-size:13px}
 </style>
 </head>
 <body>
 <header>
-  <h1>Interactive Map — Experiments & Cognitive Classifications</h1>
-  <p class="lead">Click any category to expand a short description and cognitive tokens. Designed for Canvas embedding (iframe).</p>
+  <h1>Cognitive Tasks — Tokens & Definitions</h1>
+  <p class="lead">Click a category to explore tasks. Click any individual experiment to show its **full token set** and a short description. Use the token legend to interpret labels.</p>
 </header>
 
-<div class="grid embed-wrap" id="grid">
-  <div class="card" data-task="Attention & Control">
-    <h3>Attention & Control</h3>
-    <p>Stroop, Flanker, Navon, SART, SST, IOR, PRP</p>
+<div class="wrap">
+  <!-- Category grid -->
+  <div class="grid" id="categoryGrid">
+    <div class="card" data-cat="Attention & Control">
+      <h3>Attention & Control</h3>
+      <p class="lead">Inhibition, conflict, selective attention.</p>
+      <div class="exp-list" id="list-Attention & Control">
+        <span class="exp-item" data-exp="Stroop">Stroop Task</span>
+        <span class="exp-item" data-exp="Flanker">Flanker Task</span>
+        <span class="exp-item" data-exp="Navon">Navon (Global–Local)</span>
+        <span class="exp-item" data-exp="SART">SART</span>
+        <span class="exp-item" data-exp="SST">Stop-Signal Task</span>
+        <span class="exp-item" data-exp="IOR">Inhibition of Return (IOR)</span>
+        <span class="exp-item" data-exp="PRP">PRP (Psychological Refractory Period)</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="Working Memory">
+      <h3>Working Memory</h3>
+      <p class="lead">Capacity, updating, dual-task WM.</p>
+      <div class="exp-list">
+        <span class="exp-item" data-exp="Corsi">Corsi Block-Tapping</span>
+        <span class="exp-item" data-exp="O-Span">Operation Span (O-Span)</span>
+        <span class="exp-item" data-exp="Mental Rotation">Mental Rotation</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="Decision & Risk">
+      <h3>Decision & Risk</h3>
+      <p class="lead">Valuation, uncertainty, reinforcement learning.</p>
+      <div class="exp-list">
+        <span class="exp-item" data-exp="BART">Balloon Analogue Risk Task (BART)</span>
+        <span class="exp-item" data-exp="IGT">Iowa Gambling Task (IGT)</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="Vigilance">
+      <h3>Vigilance</h3>
+      <p class="lead">Sustained attention & lapses.</p>
+      <div class="exp-list">
+        <span class="exp-item" data-exp="Mackworth">Mackworth Clock Task</span>
+        <span class="exp-item" data-exp="PVT">Psychomotor Vigilance Task (PVT)</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="Perception & Psychophysics">
+      <h3>Perception & Psychophysics</h3>
+      <p class="lead">Perceptual biases and thresholds.</p>
+      <div class="exp-list">
+        <span class="exp-item" data-exp="HV-Illusion">Horizontal–Vertical Illusion</span>
+        <span class="exp-item" data-exp="Navon">Navon (Global–Local)</span>
+        <span class="exp-item" data-exp="Mental Rotation">Mental Rotation</span>
+      </div>
+    </div>
+
+    <div class="card" data-cat="Motor / Human Factors">
+      <h3>Motor / Human Factors</h3>
+      <p class="lead">Visuomotor control & speed–accuracy tradeoffs.</p>
+      <div class="exp-list">
+        <span class="exp-item" data-exp="Fitts">Fitts' Law Task</span>
+      </div>
+    </div>
   </div>
-  <div class="card" data-task="Working Memory">
-    <h3>Working Memory</h3>
-    <p>Corsi, Operation Span, Mental Rotation</p>
-  </div>
-  <div class="card" data-task="Decision & Risk">
-    <h3>Decision & Risk</h3>
-    <p>BART, IGT</p>
-  </div>
-  <div class="card" data-task="Vigilance">
-    <h3>Vigilance</h3>
-    <p>Mackworth, PVT, SART</p>
-  </div>
-  <div class="card" data-task="Perception & Psychophysics">
-    <h3>Perception & Psychophysics</h3>
-    <p>Navon, Horizontal–Vertical Illusion, Mental Rotation</p>
-  </div>
-  <div class="card" data-task="Motor / Human Factors">
-    <h3>Motor / Human Factors</h3>
-    <p>Fitts' Law, Pointing Tasks</p>
-  </div>
+
+  <!-- Detail Panel -->
+  <section class="detail" id="detail">
+    <h2 id="detailTitle">Click an experiment</h2>
+    <p id="detailDesc">Select any experiment label to see the full set of attribute tokens (COG, CTRL, MEM, ATTN, DEC, MOT, DYN, MEAS) and a short explanation.</p>
+    <div id="tokens" class="chips" aria-live="polite"></div>
+    <div style="margin-top:10px;"><a class="smalllink" id="moreLink" href="#" target="_blank" rel="noopener">Open full docs (optional)</a></div>
+  </section>
+
+  <!-- Legend -->
+  <aside class="legend" aria-labelledby="legendTitle">
+    <h3 id="legendTitle">Token Legend (definitions)</h3>
+    <div class="legend-table">
+      <div><strong>COG</strong></div><div>Core cognitive process the task targets (e.g., attention, working memory, valuation).</div>
+      <div><strong>CTRL</strong></div><div>Type of control or interference (e.g., inhibition, interference suppression).</div>
+      <div><strong>MEM</strong></div><div>Memory processes involved (span, updating, short-term storage).</div>
+      <div><strong>ATTN</strong></div><div>Attentional demands (sustained, selective, divided).</div>
+      <div><strong>DEC</strong></div><div>Decision-making mechanism (risk-taking, binary choice, detection).</div>
+      <div><strong>MOT</strong></div><div>Motor / perceptual response attributes (keypress, pointing, aiming).</div>
+      <div><strong>DYN</strong></div><div>Trial dynamics & structure (staircase, SOA manipulation, learning across trials).</div>
+      <div><strong>MEAS</strong></div><div>Typical dependent measures (RT, accuracy, SSRT, lapses).</div>
+    </div>
+
+    <div class="split" style="margin-top:12px">
+      <div>
+        <h4 style="margin:0 0 6px;color:var(--accent)">Quick tips</h4>
+        <ul style="margin:0 0 0 18px;color:var(--muted);font-size:13px">
+          <li>Use the legend to interpret chips under each experiment.</li>
+          <li>Click an experiment name to expand full tokens.</li>
+          <li>Host this file via GitHub Pages and embed via iframe in Canvas.</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="margin:0 0 6px;color:var(--accent)">Accessibility</h4>
+        <ul style="margin:0 0 0 18px;color:var(--muted);font-size:13px">
+          <li>Keyboard focus: experiment items are focusable and clickable.</li>
+          <li>ARIA live region announces tokens when opened.</li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
 </div>
 
-<!-- Detail panel -->
-<section class="detail" id="detail">
-  <h2 id="detailTitle"></h2>
-  <p id="detailDesc"></p>
-  <div class="chips" id="chipContainer"></div>
-</section>
-
 <footer>
-  <small>Tip: responsive layout — adjust frame height to show details. Provide a static fallback image if embedding fails.</small>
+  <small>Tip: if you embed this page in Canvas with an iframe, consider the postMessage auto-resize included in the script below. Provide a static PNG fallback for environments that block iframes.</small>
 </footer>
 
 <script>
-(function(){
-  const meta = {
-    "Attention & Control":{
-      desc:"Tasks measuring inhibition, conflict resolution, and selective attention.",
-      tokens:["COG: conflict processing","CTRL: inhibition","ATTN: selective attention","MEAS: RT, accuracy"]
-    },
-    "Working Memory":{
-      desc:"Tasks probing storage and manipulation of information (verbal & visuospatial).",
-      tokens:["COG: WM capacity","MEM: span/maintenance","DYN: set-size variation","MEAS: span score"]
-    },
-    "Decision & Risk":{
-      desc:"Tasks that probe valuation, risk, and reinforcement learning.",
-      tokens:["DEC: risk-taking","COG: valuation","DYN: experiential learning","MEAS: choice pattern"]
-    },
-    "Vigilance":{
-      desc:"Sustained attention tasks that measure lapses and decrements.",
-      tokens:["ATTN: sustained monitoring","COG: vigilance","MEAS: lapses, hit rate","DYN: time-on-task decline"]
-    },
-    "Perception & Psychophysics":{
-      desc:"Tasks exploring perceptual biases, thresholds, and hierarchical processing.",
-      tokens:["COG: perceptual bias","MEAS: threshold/illusion magnitude","DYN: psychometric curve"]
-    },
-    "Motor / Human Factors":{
-      desc:"Sensorimotor control and speed–accuracy tradeoff tasks relevant to HCI.",
-      tokens:["MOT: aimed movement","COG: movement planning","MEAS: movement time, throughput"]
+/* Data model: experiments -> metadata + tokens */
+const EXPERIMENTS = {
+  "Stroop": {
+    title: "Stroop Task",
+    desc: "Conflict processing; name the ink color while ignoring word meaning.",
+    tokens: {
+      COG: "conflict processing, selective attention",
+      CTRL: "inhibition of automatic reading",
+      MEM: "minimal",
+      ATTN: "focus on perceptual feature (color)",
+      DEC: "color classification (choice)",
+      MOT: "speeded keypress",
+      DYN: "trial-level congruency manipulation",
+      MEAS: "RT difference (incong - cong), accuracy"
     }
-  };
-
-  const cards = document.querySelectorAll('.card');
-  const detail = document.getElementById('detail');
-  const titleEl = document.getElementById('detailTitle');
-  const descEl = document.getElementById('detailDesc');
-  const chips = document.getElementById('chipContainer');
-
-  function showDetail(key){
-    const obj = meta[key];
-    if(!obj) return;
-    titleEl.textContent = key;
-    descEl.textContent = obj.desc;
-    chips.innerHTML = '';
-    obj.tokens.forEach(t=>{
-      const c = document.createElement('span');
-      c.className = 'chip';
-      c.textContent = t;
-      chips.appendChild(c);
-    });
-    detail.classList.add('visible');
-    detail.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-
-  cards.forEach(c=>{
-    c.addEventListener('click', ()=> showDetail(c.dataset.task));
-  });
-
-  // If embedded in an iframe, allow parent to adjust height via postMessage (optional)
-  function sendHeight(){
-    if(window.parent !== window){
-      window.parent.postMessage({type:'infographic-height', height: document.body.scrollHeight}, '*');
+  },
+  "Flanker": {
+    title: "Flanker Task",
+    desc: "Respond to target while ignoring flanking distractors that may be congruent or incongruent.",
+    tokens: {
+      COG: "selective attention, conflict monitoring",
+      CTRL: "interference suppression",
+      MEM: "minimal",
+      ATTN: "target vs distractor filtering",
+      DEC: "binary discrimination",
+      MOT: "speeded keypress",
+      DYN: "congruency conditions",
+      MEAS: "flanker effect (RT, accuracy)"
+    }
+  },
+  "Navon": {
+    title: "Global–Local (Navon)",
+    desc: "Hierarchical stimuli where global shape and local elements can be congruent or conflicting.",
+    tokens: {
+      COG: "hierarchical perceptual processing",
+      CTRL: "global-local selection control",
+      MEM: "minimal",
+      ATTN: "attentional scope shifting",
+      DEC: "feature-level classification",
+      MOT: "keypress",
+      DYN: "global vs local blocks",
+      MEAS: "global-local RT difference"
+    }
+  },
+  "SART": {
+    title: "Sustained Attention to Response Task (SART)",
+    desc: "Frequent 'go' responses; withhold on rare no-go targets — sensitive to lapses.",
+    tokens: {
+      COG: "sustained attention, mind-wandering sensitivity",
+      CTRL: "inhibitory control under monotony",
+      MEM: "minimal",
+      ATTN: "continuous monitoring",
+      DEC: "go/no-go decision",
+      MOT: "keypress",
+      DYN: "long sequences with rare no-go",
+      MEAS: "commission errors, RT variability"
+    }
+  },
+  "SST": {
+    title: "Stop-Signal Task (SST)",
+    desc: "Go responses must be stopped on some trials when a stop signal appears; measures inhibitory speed.",
+    tokens: {
+      COG: "response inhibition",
+      CTRL: "canceling initiated responses",
+      MEM: "minimal",
+      ATTN: "monitor for stop cue",
+      DEC: "go vs stop competition",
+      MOT: "keypress inhibition",
+      DYN: "stop-signal delay staircase",
+      MEAS: "SSRT"
+    }
+  },
+  "IOR": {
+    title: "Inhibition of Return (IOR)",
+    desc: "Slower detection at previously cued locations after a lag, indexing inhibitory tagging of locations.",
+    tokens: {
+      COG: "attentional orienting",
+      CTRL: "spatial inhibition",
+      MEM: "implicit spatial tagging",
+      ATTN: "cue-based attention",
+      DEC: "target detection",
+      MOT: "speeded detection",
+      DYN: "cue-target SOA manipulation",
+      MEAS: "IOR effect (RT difference)"
+    }
+  },
+  "PRP": {
+    title: "Psychological Refractory Period (PRP)",
+    desc: "Two tasks in close succession create a bottleneck: RT2 increases when SOA is short.",
+    tokens: {
+      COG: "central bottleneck, dual-task interference",
+      CTRL: "temporal task switching",
+      MEM: "minimal",
+      ATTN: "divided attention",
+      DEC: "two sequential choices",
+      MOT: "dual responses",
+      DYN: "SOA variation",
+      MEAS: "PRP effect (RT2 slowdown)"
+    }
+  },
+  "Corsi": {
+    title: "Corsi Block-Tapping Test",
+    desc: "Visuospatial sequence reproduction; measures block span (visuospatial WM).",
+    tokens: {
+      COG: "visuospatial working memory, sequence encoding",
+      CTRL: "serial order maintenance",
+      MEM: "span capacity",
+      ATTN: "spatial attention shifts",
+      DEC: "sequence recall choice",
+      MOT: "spatial tapping / clicking",
+      DYN: "increasing sequence length",
+      MEAS: "Corsi span (max correct length)"
+    }
+  },
+  "O-Span": {
+    title: "Operation Span (O-Span)",
+    desc: "Interleaved math and memory; measures working memory capacity under dual-task demands.",
+    tokens: {
+      COG: "working memory updating",
+      CTRL: "dual-task coordination",
+      MEM: "letter sequence retention",
+      ATTN: "divided attention",
+      DEC: "math + recall accuracy",
+      MOT: "keyboard recall",
+      DYN: "set-size manipulation",
+      MEAS: "O-Span score"
+    }
+  },
+  "Mental Rotation": {
+    title: "Mental Rotation",
+    desc: "Determine if rotated shapes match; RT typically increases linearly with rotation angle.",
+    tokens: {
+      COG: "spatial transformation, mental imagery",
+      CTRL: "speed–accuracy tradeoff",
+      MEM: "short-term shape retention",
+      ATTN: "visual comparison",
+      DEC: "match/non-match",
+      MOT: "keypress",
+      DYN: "angle variation",
+      MEAS: "slope of RT vs angle"
+    }
+  },
+  "BART": {
+    title: "Balloon Analogue Risk Task (BART)",
+    desc: "Sequential pumps increase reward and explosion risk—measures propensity for risky decisions.",
+    tokens: {
+      COG: "valuation, reward sensitivity",
+      CTRL: "impulsivity regulation, loss aversion control",
+      MEM: "feedback-based updating",
+      ATTN: "monitor risk cues",
+      DEC: "sequential risk-taking",
+      MOT: "pump / stop button",
+      DYN: "probabilistic explosion hazard",
+      MEAS: "adjusted pumps, explosions, earnings"
+    }
+  },
+  "IGT": {
+    title: "Iowa Gambling Task (IGT)",
+    desc: "Choose from decks with different long-term payoffs; measures learning of advantageous options.",
+    tokens: {
+      COG: "valuation, long-term outcome integration",
+      CTRL: "impulse control",
+      MEM: "reinforcement history",
+      ATTN: "outcome monitoring",
+      DEC: "deck selection (risk vs safe)",
+      MOT: "card selection click",
+      DYN: "learning across trials",
+      MEAS: "net advantageous picks, learning slope"
+    }
+  },
+  "Mackworth": {
+    title: "Mackworth Clock Task",
+    desc: "Vigilance test where rare skips must be detected; measures vigilance decrement.",
+    tokens: {
+      COG: "vigilance, sustained attention",
+      CTRL: "rare-event monitoring",
+      MEM: "temporal expectancy",
+      ATTN: "continuous monitoring",
+      DEC: "deviation detection",
+      MOT: "button press",
+      DYN: "long-run time-on-task",
+      MEAS: "hit rate, false alarms, lapse trends"
+    }
+  },
+  "PVT": {
+    title: "Psychomotor Vigilance Task (PVT)",
+    desc: "Respond quickly to unpredictable stimuli over time—sensitive to sleep loss.",
+    tokens: {
+      COG: "vigilance, alertness",
+      CTRL: "sustained readiness",
+      MEM: "minimal",
+      ATTN: "stimulus readiness",
+      DEC: "simple detection",
+      MOT: "button press",
+      DYN: "fatigue accumulation",
+      MEAS: "lapses, RT distribution stats"
+    }
+  },
+  "HV-Illusion": {
+    title: "Horizontal–Vertical Illusion",
+    desc: "Perceptual bias where vertical lines appear longer than identical horizontal ones.",
+    tokens: {
+      COG: "perceptual bias, spatial estimation",
+      CTRL: "perception vs reality conflict",
+      MEM: "minimal",
+      ATTN: "spatial orientation",
+      DEC: "judged length",
+      MOT: "point / click",
+      DYN: "static comparison",
+      MEAS: "illusion magnitude (perceived - actual)"
+    }
+  },
+  "Fitts": {
+    title: "Fitts' Law Task",
+    desc: "Pointing/aiming with different target sizes/distances to measure speed–accuracy tradeoff.",
+    tokens: {
+      COG: "movement planning",
+      CTRL: "speed–accuracy tradeoff control",
+      MEM: "minimal",
+      ATTN: "target monitoring",
+      DEC: "movement initiation",
+      MOT: "aimed movement / pointing",
+      DYN: "index-of-difficulty variation",
+      MEAS: "movement time, throughput, error rate"
+    }
+  },
+  "Lexical Decision": {
+    title: "Lexical Decision Task (LDT)",
+    desc: "Decide if letter strings are real words; used to study lexical access and priming.",
+    tokens: {
+      COG: "word recognition, lexical access",
+      CTRL: "minimal inhibition",
+      MEM: "lexical memory",
+      ATTN: "visual processing",
+      DEC: "word/nonword",
+      MOT: "keypress",
+      DYN: "priming manipulations",
+      MEAS: "RT word vs nonword, accuracy"
     }
   }
-  // send height initially and on resize
+};
+
+/* UI wiring */
+const detail = document.getElementById('detail');
+const titleEl = document.getElementById('detailTitle');
+const descEl = document.getElementById('detailDesc');
+const tokensEl = document.getElementById('tokens');
+const moreLink = document.getElementById('moreLink');
+
+function renderTokens(map){
+  tokensEl.innerHTML = '';
+  for(const k of ["COG","CTRL","MEM","ATTN","DEC","MOT","DYN","MEAS"]){
+    const val = map[k];
+    if(!val) continue;
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.textContent = k + ': ' + val;
+    tokensEl.appendChild(chip);
+  }
+}
+
+function showExperiment(expKey){
+  const data = EXPERIMENTS[expKey];
+  if(!data) return;
+  titleEl.textContent = data.title;
+  descEl.textContent = data.desc;
+  renderTokens(data.tokens);
+  moreLink.href = '#'; // could point to a docs page if you host one
+  detail.classList.add('visible');
+  // announce to parent for resizing
   sendHeight();
-  let rtime;
-  window.addEventListener('resize', ()=> { clearTimeout(rtime); rtime = setTimeout(sendHeight,200); });
-})();
+  // for screen readers focus
+  detail.setAttribute('tabindex','-1');
+  detail.focus({preventScroll:true});
+}
+
+/* make experiment items keyboard-focusable and clickable */
+document.querySelectorAll('.exp-item').forEach(el=>{
+  el.setAttribute('role','button');
+  el.setAttribute('tabindex','0');
+  el.addEventListener('click', ()=> showExperiment(el.dataset.exp));
+  el.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showExperiment(el.dataset.exp); }});
+});
+
+/* Also allow clicking the card header to open first experiment in that category */
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('click', (ev)=>{
+    // if clicked on an exp-item, its handler already fired; otherwise open first child experiment
+    if(ev.target.classList.contains('exp-item')) return;
+    const first = card.querySelector('.exp-item');
+    if(first) { showExperiment(first.dataset.exp); }
+  });
+});
+
+/* postMessage auto-height to parent (useful for iframe embed) */
+function sendHeight(){
+  if(window.parent !== window){
+    const h = document.documentElement.scrollHeight;
+    window.parent.postMessage({type:'infographic-height', height: h}, '*');
+  }
+}
+window.addEventListener('resize', ()=> { clearTimeout(window.__rsz); window.__rsz = setTimeout(sendHeight, 150); });
+
+/* initial accessible hint: focus first card for keyboard users */
+document.querySelectorAll('.card')[0].setAttribute('tabindex','0');
 </script>
 </body>
 </html>
