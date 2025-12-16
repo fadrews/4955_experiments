@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cognitive Tasks Infographic</title>
+<style>
+  :root{
+    --bg:#f7f9fc; --card:#fff; --accent:#2b6fb3; --muted:#5a6b7a;
+  }
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:var(--bg); color:#123; margin:0; padding:24px;}
+  header{max-width:1100px;margin:0 auto 18px;}
+  h1{margin:0 0 8px;font-size:28px;color:var(--accent)}
+  p.lead{margin:0;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1100px;margin:18px auto;}
+  .card{background:var(--card);border-radius:10px;padding:14px;box-shadow:0 6px 18px rgba(20,30,50,0.06);cursor:pointer;transition:transform .12s, box-shadow .12s;}
+  .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(20,30,50,0.08)}
+  .card h3{margin:0 0 6px;font-size:16px;color:var(--accent)}
+  .card p{margin:0;color:var(--muted);font-size:13px}
+  .detail{max-width:1100px;margin:18px auto;background:#fff;border-radius:10px;padding:14px; box-shadow:0 6px 18px rgba(20,30,50,0.04); display:none;}
+  .detail.visible{display:block;}
+  .detail h2{margin-top:0;color:var(--accent)}
+  .chips{margin-top:8px}
+  .chip{display:inline-block;background:#eef6ff;color:var(--accent);padding:6px 10px;border-radius:999px;font-size:12px;margin:4px 6px 0 0}
+  footer{max-width:1100px;margin:18px auto;color:var(--muted);font-size:13px}
+  /* responsive embed support */
+  .embed-wrap{max-width:1100px;margin:0 auto}
+</style>
+</head>
+<body>
+<header>
+  <h1>Interactive Map — Tasks & Cognitive Classifications</h1>
+  <p class="lead">Click any category to expand a short description and cognitive tokens. Designed for Canvas embedding (iframe).</p>
+</header>
+
+<div class="grid embed-wrap" id="grid">
+  <div class="card" data-task="Attention & Control">
+    <h3>Attention & Control</h3>
+    <p>Stroop, Flanker, Navon, SART, SST, IOR, PRP</p>
+  </div>
+  <div class="card" data-task="Working Memory">
+    <h3>Working Memory</h3>
+    <p>Corsi, Operation Span, Mental Rotation</p>
+  </div>
+  <div class="card" data-task="Decision & Risk">
+    <h3>Decision & Risk</h3>
+    <p>BART, IGT</p>
+  </div>
+  <div class="card" data-task="Vigilance">
+    <h3>Vigilance</h3>
+    <p>Mackworth, PVT, SART</p>
+  </div>
+  <div class="card" data-task="Perception & Psychophysics">
+    <h3>Perception & Psychophysics</h3>
+    <p>Navon, Horizontal–Vertical Illusion, Mental Rotation</p>
+  </div>
+  <div class="card" data-task="Motor / Human Factors">
+    <h3>Motor / Human Factors</h3>
+    <p>Fitts' Law, Pointing Tasks</p>
+  </div>
+</div>
+
+<!-- Detail panel -->
+<section class="detail" id="detail">
+  <h2 id="detailTitle"></h2>
+  <p id="detailDesc"></p>
+  <div class="chips" id="chipContainer"></div>
+</section>
+
+<footer>
+  <small>Tip: responsive layout — adjust frame height to show details. Provide a static fallback image if embedding fails.</small>
+</footer>
+
+<script>
+(function(){
+  const meta = {
+    "Attention & Control":{
+      desc:"Tasks measuring inhibition, conflict resolution, and selective attention.",
+      tokens:["COG: conflict processing","CTRL: inhibition","ATTN: selective attention","MEAS: RT, accuracy"]
+    },
+    "Working Memory":{
+      desc:"Tasks probing storage and manipulation of information (verbal & visuospatial).",
+      tokens:["COG: WM capacity","MEM: span/maintenance","DYN: set-size variation","MEAS: span score"]
+    },
+    "Decision & Risk":{
+      desc:"Tasks that probe valuation, risk, and reinforcement learning.",
+      tokens:["DEC: risk-taking","COG: valuation","DYN: experiential learning","MEAS: choice pattern"]
+    },
+    "Vigilance":{
+      desc:"Sustained attention tasks that measure lapses and decrements.",
+      tokens:["ATTN: sustained monitoring","COG: vigilance","MEAS: lapses, hit rate","DYN: time-on-task decline"]
+    },
+    "Perception & Psychophysics":{
+      desc:"Tasks exploring perceptual biases, thresholds, and hierarchical processing.",
+      tokens:["COG: perceptual bias","MEAS: threshold/illusion magnitude","DYN: psychometric curve"]
+    },
+    "Motor / Human Factors":{
+      desc:"Sensorimotor control and speed–accuracy tradeoff tasks relevant to HCI.",
+      tokens:["MOT: aimed movement","COG: movement planning","MEAS: movement time, throughput"]
+    }
+  };
+
+  const cards = document.querySelectorAll('.card');
+  const detail = document.getElementById('detail');
+  const titleEl = document.getElementById('detailTitle');
+  const descEl = document.getElementById('detailDesc');
+  const chips = document.getElementById('chipContainer');
+
+  function showDetail(key){
+    const obj = meta[key];
+    if(!obj) return;
+    titleEl.textContent = key;
+    descEl.textContent = obj.desc;
+    chips.innerHTML = '';
+    obj.tokens.forEach(t=>{
+      const c = document.createElement('span');
+      c.className = 'chip';
+      c.textContent = t;
+      chips.appendChild(c);
+    });
+    detail.classList.add('visible');
+    detail.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  cards.forEach(c=>{
+    c.addEventListener('click', ()=> showDetail(c.dataset.task));
+  });
+
+  // If embedded in an iframe, allow parent to adjust height via postMessage (optional)
+  function sendHeight(){
+    if(window.parent !== window){
+      window.parent.postMessage({type:'infographic-height', height: document.body.scrollHeight}, '*');
+    }
+  }
+  // send height initially and on resize
+  sendHeight();
+  let rtime;
+  window.addEventListener('resize', ()=> { clearTimeout(rtime); rtime = setTimeout(sendHeight,200); });
+})();
+</script>
+</body>
+</html>
